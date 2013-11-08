@@ -2,17 +2,15 @@ package edu.njit.cs634.knn;
 
 public class NumberGenerator {
 	
-	public NumberGenerator(int range, int multiplier)
+	public NumberGenerator(int multiplier)
 	{
-		this.range = range;
 		this.multiplier = multiplier;
 	}
 	
 	public int getNumber()
 	{
-		return (int) ((Math.random() * multiplier) % range);
+		return (int) (Math.random() * multiplier);
 	}
 
-	private int range;
 	private int multiplier;
 }
