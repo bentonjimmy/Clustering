@@ -5,7 +5,16 @@ public class PointsVector extends AbstractVector {
 	public PointsVector()
 	{
 		x = y = z = 0;
-		gen = new NumberGenerator(1000);
+		gen = NumberGenerator.getInstance();
+		vectorID = ++numOfVectors;
+	}
+	
+	public PointsVector(int x, int y, int z)
+	{
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		vectorID = ++numOfVectors;
 	}
 	
 	public void fillPoints()
@@ -13,6 +22,11 @@ public class PointsVector extends AbstractVector {
 		x = gen.getNumber();
 		y = gen.getNumber();
 		z = gen.getNumber();
+	}
+	
+	public String toString()
+	{
+		return "("+getX()+", "+getY()+", "+getZ()+")";
 	}
 	
 	public int getX() {
@@ -27,7 +41,19 @@ public class PointsVector extends AbstractVector {
 		return z;
 	}
 	
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public void setZ(int z) {
+		this.z = z;
+	}
+
 	private static NumberGenerator gen;
 	private int x, y, z;
-	
+	private static int numOfVectors = 0;
 }
