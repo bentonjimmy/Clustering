@@ -1,8 +1,10 @@
 package edu.njit.cs634.knn;
 
+import java.util.ArrayList;
+
 public interface ClusteringTechnique {
 
-	public void assignClusters();
+	public ArrayList<Cluster> assignClusters();
 	public void receivePointsTable(PointsTable pt);
 	public void calculateSimilarity();
 	//public Vector[] removeOutliers();

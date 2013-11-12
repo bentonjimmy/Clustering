@@ -12,6 +12,7 @@ public class ConcretePointsTable extends AbstractPointsTable {
 		this.vectors = vectors;
 		this.tableSize =vectors.length;
 		distanceTable = new double [this.tableSize][this.tableSize];
+		measureDistance();
 	}
 	
 	/**

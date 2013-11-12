@@ -21,11 +21,12 @@ public class SingleLinkClustering extends AbstractClusteringTechnique {
 			c.add(vectors[i]);
 			clusters.add(c);
 		}
-		numOfClusters = 0;
+		numOfClusters = vectors.length;
+		distances = new ConcretePointsTable(vectors);
 	}
 	
 	@Override
-	public void assignClusters() {
+	public ArrayList<Cluster> assignClusters() {
 		
 		ArrayList<WeightedEdge> distanceList = new ArrayList<WeightedEdge>();
 		if(distances != null)
@@ -40,14 +41,25 @@ public class SingleLinkClustering extends AbstractClusteringTechnique {
 				}
 			}
 			
+			//Sort the distances in ascending order
 			Collections.sort(distanceList);
 			
-			while(numOfClusters >= endingClusterCount)
+			while(numOfClusters > endingClusterCount)
 			{
+				//Get the first/smallest distance
 				WeightedEdge we = distanceList.remove(0);
+				//Get one Vector associated with the distance
 				PointsVector v1 = (PointsVector) we.getV1();
-				AHCluster cluster = (AHCluster) v1.getCluster();
-				boolean result = cluster.add((PointsVector) we.getV2());
+				//Get that Vector's cluster
+				AHCluster cluster1 = (AHCluster) v1.getCluster();
+				//Get the second Vector associated with the distance
+				PointsVector v2 = (PointsVector) we.getV2();
+				//Get v2's cluster
+				AHCluster cluster2 = (AHCluster) v2.getCluster();
+				//Remove v2's cluster from the ArrayList of clusters
+				clusters.remove(cluster2);
+				//Add v2 to v1's cluster
+				boolean result = cluster1.add(v2);
 				//The vector was successfully added
 				if(result == true)
 				{
@@ -56,6 +68,8 @@ public class SingleLinkClustering extends AbstractClusteringTechnique {
 				}
 			}
 		}
+		//need to remove elements from clusters also
+		return clusters;
 	}
 	
 	
@@ -64,71 +78,6 @@ public class SingleLinkClustering extends AbstractClusteringTechnique {
 	public void calculateSimilarity() {
 		// TODO Auto-generated method stub
 
-	}
-	
-	protected void findShortestDistance(Vector v1, Vector v2)
-	{
-		double shortest = -1;
-		double[][] table = ((ConcretePointsTable) distances).getDistanceTable();
-		
-		for(int i=0; i<((ConcretePointsTable) this.distances).getTableSize(); i++)
-		{
-			double qs = quickSelect(table[i], 1);
-			if(shortest == -1)
-			{
-				shortest = qs;
-			}
-			else if(qs < shortest)
-			{
-				shortest = qs;
-			}
-		}
-	}
-	
-	protected double quickSelect(double[] convert, int k)
-	{
-		Double[] elements = new Double[convert.length];
-		for(int i=0; i<convert.length; i++)
-		{
-			elements[i] = convert[i];
-		}
-		return quickSelect(elements, k);
-	}
-
-	protected double quickSelect(Double[] elements, int k)
-	{
-		if(elements.length == 1)
-		{
-			return elements[0];
-		}
-		
-		int rand = (int)(Math.random() * elements.length);
-		double x = elements[rand];
-		ArrayList<Double> l = new ArrayList<Double>();
-		ArrayList<Double> e = new ArrayList<Double>();
-		ArrayList<Double> g = new ArrayList<Double>();
-		for(int i=0; i<elements.length; i++)
-		{
-			if(elements[i] < x)
-				l.add(elements[i]);
-			else if(elements[i] == x)
-				e.add(elements[i]);
-			else
-				g.add(elements[i]);
-		}
-		
-		if(k <= l.size())
-		{
-			return quickSelect(l.toArray(new Double[0]), k);
-		}
-		else if(k <= (l.size() + e.size()))
-		{
-			return x;
-		}
-		else
-		{
-			return quickSelect(g.toArray(new Double[0]), k - l.size() - e.size());
-		}
 	}
 	
 	@Override

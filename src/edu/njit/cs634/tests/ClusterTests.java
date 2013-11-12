@@ -69,7 +69,6 @@ public class ClusterTests {
 	{
 		AHCluster cluster1 = new AHCluster();
 		AHCluster cluster2 = new AHCluster();
-		AHCluster cluster3 = new AHCluster();
 		PointsVector pv1 = new PointsVector(40, 53, 1);
 		PointsVector pv2 = new PointsVector(22, 38, 1);
 		PointsVector pv3 = new PointsVector(35, 32, 1);
