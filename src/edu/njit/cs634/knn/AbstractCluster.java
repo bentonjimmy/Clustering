@@ -65,6 +65,20 @@ public abstract class AbstractCluster implements Cluster {
 		return vArray.toArray(new Vector[0]);
 	}
 	
+	public String toString()
+	{
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("[");
+		Set<Integer> keys = clusteredVectors.keySet();
+		for(Integer i: keys)
+		{
+			Vector v = clusteredVectors.get(i);
+			buffer.append(v.toString());
+		}
+		buffer.append("]");
+		return buffer.toString();
+	}
+	
 	public int getID() {
 		return id;
 	}
