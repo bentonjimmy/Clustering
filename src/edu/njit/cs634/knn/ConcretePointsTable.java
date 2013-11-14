@@ -1,5 +1,7 @@
 package edu.njit.cs634.knn;
 
+import java.util.ArrayList;
+
 /**
  * 
  * @author jmb66
@@ -12,6 +14,7 @@ public class ConcretePointsTable extends AbstractPointsTable {
 		this.vectors = vectors;
 		this.tableSize =vectors.length;
 		distanceTable = new double [this.tableSize][this.tableSize];
+		weightsTable = new ArrayList<ArrayList<WeightedEdge>>();
 		measureDistance();
 	}
 	
@@ -22,13 +25,22 @@ public class ConcretePointsTable extends AbstractPointsTable {
 	@Override
 	public void measureDistance()
 	{
+		double distance;
+		WeightedEdge we;
 		for(int i=0; i<this.tableSize; i++)
 		{
+			//Create a temp arrayList to hold the "column"
+			ArrayList<WeightedEdge> temp = new ArrayList<WeightedEdge>();
 			for(int j=0; j<this.tableSize; j++)
 			{
 				//This will call MeasureDistance below
-				distanceTable[i][j] = measureDistance(vectors[i], vectors[j]);
+				distance = measureDistance(vectors[i], vectors[j]);
+				//Create a new edge with the two vectors and their distance apart
+				we = new WeightedEdge(distance, vectors[i], vectors[j]);
+				//Add the edge to the arrayList
+				temp.add(we);
 			}
+			weightsTable.add(temp);
 		}
 	}
 	

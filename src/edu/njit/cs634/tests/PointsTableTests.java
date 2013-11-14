@@ -36,22 +36,22 @@ public class PointsTableTests {
 		Vector[] points = new Vector[2];
 		PointsVector pv1 = new PointsVector();
 		PointsVector pv2 = new PointsVector();
-		points[0] = pv1;
-		points[1] = pv2;
-		ConcretePointsTable pointstable = new ConcretePointsTable(points);
-		
 		pv1.setX(1);
 		pv1.setY(1);
 		pv1.setZ(1);
 		pv2.setX(3);
 		pv2.setY(3);
 		pv2.setZ(2);
-		
+		points[0] = pv1;
+		points[1] = pv2;
+		ConcretePointsTable pointstable = new ConcretePointsTable(points);
+		/*
 		Vector[] varray = new Vector[2];
 		varray[0] = pv1;
 		varray[1] = pv2;
 		pointstable.setVectors(varray);
 		pointstable.measureDistance();
+		*/
 		double[][] table = pointstable.getDistanceTable();
 		for(int i=0; i<2; i++)
 		{

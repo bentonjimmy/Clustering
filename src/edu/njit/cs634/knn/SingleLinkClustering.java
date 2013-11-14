@@ -13,16 +13,8 @@ public class SingleLinkClustering extends AbstractClusteringTechnique {
 	
 	public SingleLinkClustering(int clusterCount, Vector[] vectors)
 	{
-		this.endingClusterCount = clusterCount;
-		clusters = new ArrayList<Cluster>();
-		for(int i=0; i<vectors.length; i++)
-		{
-			Cluster c = new AHCluster();
-			c.add(vectors[i]);
-			clusters.add(c);
-		}
-		numOfClusters = vectors.length;
-		distances = new ConcretePointsTable(vectors);
+		super.initializeClustering(clusterCount, vectors);
+		name  = "SingleLink";
 	}
 	
 	@Override
@@ -89,9 +81,5 @@ public class SingleLinkClustering extends AbstractClusteringTechnique {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	private String name = "SingleLink"; 
-	private ArrayList<Cluster> clusters; //Holds the clusters
-	private int numOfClusters;
-	private int endingClusterCount; //Holds the number of clusters the algorithm will stop at
+
 }

@@ -8,6 +8,12 @@ public class AHCluster extends AbstractCluster {
 	{
 		clusteredVectors = new HashMap<Integer, Vector>();
 	}
+
+	@Override
+	public boolean contains(Vector v) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	
 
