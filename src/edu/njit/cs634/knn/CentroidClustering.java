@@ -2,14 +2,14 @@ package edu.njit.cs634.knn;
 
 import java.util.ArrayList;
 
-public class GroupAverageClustering extends AbstractClusteringTechnique {
+public class CentroidClustering extends AbstractClusteringTechnique {
 
-	public GroupAverageClustering()
+	public CentroidClustering()
 	{
 		this(1, null);
 	}
 	
-	public GroupAverageClustering(int clusterCount, Vector[] vectors)
+	public CentroidClustering(int clusterCount, Vector[] vectors)
 	{
 		super.initializeClustering(clusterCount, vectors);
 		name  = "GroupAverage";
@@ -20,13 +20,15 @@ public class GroupAverageClustering extends AbstractClusteringTechnique {
 	{
 		int sizeOfC1;
 		int sizeOfC2;
+		double weight;
 		ArrayList<ArrayList<WeightedEdge>> weightsTable = ((ConcretePointsTable) distances).getWeightsTable();
 		
 		while(numOfClusters > endingClusterCount)
 		{
 			//Find the shortest distance between two clusters
 			WeightedEdge toCluster = findShortestDistance(weightsTable);
-			
+			//Get the distance between the two Vectors
+			weight = toCluster.getWeight();
 			//Get one Vector associated with the distance
 			PointsVector v1 = (PointsVector) toCluster.getV1();
 			//Get that Vector's cluster
@@ -60,7 +62,7 @@ public class GroupAverageClustering extends AbstractClusteringTechnique {
 			{
 				double a = traverseTable(i, column, weightsTable);
 				double b = traverseTable(i, row, weightsTable);
-				a = lanceWilliams(a, sizeOfC1, b, sizeOfC2);
+				a = lanceWilliams(a, sizeOfC1, b, sizeOfC2, weight);
 				updateCell(i, column, a, weightsTable);
 				i++;
 			}
@@ -153,11 +155,12 @@ public class GroupAverageClustering extends AbstractClusteringTechnique {
 		}
 	}
 	
-	protected double lanceWilliams(double a, double sizeOfA, double b, double sizeOfB)
+	protected double lanceWilliams(double a, double sizeOfA, double b, double sizeOfB, double distAB)
 	{
 		double alphaA = (sizeOfA / (sizeOfA + sizeOfB));
 		double alphaB = (sizeOfB / (sizeOfA + sizeOfB));
-		return (alphaA * a) + (alphaB * b);
+		double beta = (-1* sizeOfA * sizeOfB)/(Math.pow((sizeOfA + sizeOfB), 2));
+		return (alphaA * a) + (alphaB * b) + (beta * distAB);
 	}
 	
 	/**
@@ -206,4 +209,5 @@ public class GroupAverageClustering extends AbstractClusteringTechnique {
 
 	private Integer row = new Integer(0);
 	private Integer column = new Integer(0);
+
 }

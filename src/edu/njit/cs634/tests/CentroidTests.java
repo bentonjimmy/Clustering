@@ -12,11 +12,10 @@ import org.junit.Test;
 
 import edu.njit.cs634.knn.AHCluster;
 import edu.njit.cs634.knn.Cluster;
-import edu.njit.cs634.knn.CompleteLinkClustering;
 import edu.njit.cs634.knn.GroupAverageClustering;
 import edu.njit.cs634.knn.PointsVector;
 
-public class GroupAverageTests {
+public class CentroidTests {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -170,4 +169,5 @@ public class GroupAverageTests {
 			System.out.print("\n");
 		}
 	}
+
 }

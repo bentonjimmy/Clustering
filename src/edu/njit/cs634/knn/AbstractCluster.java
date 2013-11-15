@@ -72,7 +72,7 @@ public abstract class AbstractCluster implements Cluster {
 		Set<Integer> keys = clusteredVectors.keySet();
 		for(Integer i: keys)
 		{
-			Vector v = clusteredVectors.get(i);
+			PointsVector v = (PointsVector) clusteredVectors.get(i);
 			buffer.append(v.toString());
 		}
 		buffer.append("]");

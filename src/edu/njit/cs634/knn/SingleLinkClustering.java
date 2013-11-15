@@ -64,14 +64,6 @@ public class SingleLinkClustering extends AbstractClusteringTechnique {
 		return clusters;
 	}
 	
-	
-
-	@Override
-	public void calculateSimilarity() {
-		// TODO Auto-generated method stub
-
-	}
-	
 	@Override
 	public String getName() {
 		return name;
