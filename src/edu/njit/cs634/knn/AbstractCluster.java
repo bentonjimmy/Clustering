@@ -65,6 +65,19 @@ public abstract class AbstractCluster implements Cluster {
 		return vArray.toArray(new Vector[0]);
 	}
 	
+	@Override
+	public boolean contains(Vector v) 
+	{
+		if(clusteredVectors.get(v.getVectorID()) != null)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	public String toString()
 	{
 		StringBuffer buffer = new StringBuffer();
@@ -86,12 +99,8 @@ public abstract class AbstractCluster implements Cluster {
 		this.id = id;
 	}
 	
-	public int getSize() {
+	public int size() {
 		return size;
-	}
-
-	public void setSize(int size) {
-		this.size = size;
 	}
 
 	public HashMap<Integer, Vector> getClusteredVectors() {
@@ -104,7 +113,7 @@ public abstract class AbstractCluster implements Cluster {
 
 
 	protected int id;
-	protected int level;
+	//protected int level;
 	protected int size = 0;
 	protected HashMap<Integer, Vector> clusteredVectors;
 }

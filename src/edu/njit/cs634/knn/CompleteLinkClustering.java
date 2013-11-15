@@ -32,13 +32,13 @@ public class CompleteLinkClustering extends AbstractClusteringTechnique {
 			//Get that Vector's cluster
 			AHCluster cluster1 = (AHCluster) v1.getCluster();
 			//Get the size of cluster1
-			sizeOfC1 = cluster1.getSize();
+			sizeOfC1 = cluster1.size();
 			//Get the second Vector associated with the distance
 			PointsVector v2 = (PointsVector) toCluster.getV2();
 			//Get v2's cluster
 			AHCluster cluster2 = (AHCluster) v2.getCluster();
 			//Get the size of cluster2
-			sizeOfC2 = cluster2.getSize();
+			sizeOfC2 = cluster2.size();
 			//Remove v2's cluster from the ArrayList of clusters
 			clusters.remove(cluster2);
 			//Add v2 to v1's cluster

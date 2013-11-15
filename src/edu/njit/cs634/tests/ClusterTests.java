@@ -38,22 +38,22 @@ public class ClusterTests {
 		PointsVector pv3 = new PointsVector(35, 32, 1);
 		boolean result;
 		
-		assertTrue("Check initial size", cluster.getSize() == 0);
+		assertTrue("Check initial size", cluster.size() == 0);
 		result = cluster.add(pv1);
 		assertTrue("Check that pv1 was successfully added to the cluster", result == true);
-		assertTrue("Check initial after one add", cluster.getSize() == 1);
+		assertTrue("Check initial after one add", cluster.size() == 1);
 		
 		result = cluster.add(pv2);
 		assertTrue("Check that pv2 was successfully added to the cluster", result == true);
-		assertTrue("Check initial after two add", cluster.getSize() == 2);
+		assertTrue("Check initial after two add", cluster.size() == 2);
 		
 		result = cluster.add(pv3);
 		assertTrue("Check that pv3 was successfully added to the cluster", result == true);
-		assertTrue("Check initial after three add", cluster.getSize() == 3);
+		assertTrue("Check initial after three add", cluster.size() == 3);
 		
 		result = cluster.add(pv2);
 		assertTrue("pv2 is already in this cluster, expecting false", result == false);
-		assertTrue("Check initial after duplicate add", cluster.getSize() == 3);
+		assertTrue("Check initial after duplicate add", cluster.size() == 3);
 		
 		Vector[] vectors = cluster.getVectors();
 		assertTrue("Expecting to receive three Vectors", vectors.length == 3);
@@ -87,10 +87,10 @@ public class ClusterTests {
 		cluster2.add(pv5);
 		cluster2.add(pv6);
 		
-		assertTrue("Check initial size of cluster1", cluster1.getSize() == 3);
-		assertTrue("Check initial size of cluster2", cluster2.getSize() == 3);
+		assertTrue("Check initial size of cluster1", cluster1.size() == 3);
+		assertTrue("Check initial size of cluster2", cluster2.size() == 3);
 		cluster1.add(pv5);
-		assertTrue("Check size of cluster1 after adding a point from cluster2", cluster1.getSize() == 6);
+		assertTrue("Check size of cluster1 after adding a point from cluster2", cluster1.size() == 6);
 		Vector[] vectors = cluster1.getVectors();
 		assertTrue("Expecting to receive six Vectors", vectors.length == 6);
 		for(int i=0; i< vectors.length; i++)
