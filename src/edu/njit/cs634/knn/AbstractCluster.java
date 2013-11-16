@@ -65,6 +65,9 @@ public abstract class AbstractCluster implements Cluster {
 		return vArray.toArray(new Vector[0]);
 	}
 	
+	/**
+	 * Checks if the cluster contains the supplied Vector
+	 */
 	@Override
 	public boolean contains(Vector v) 
 	{
@@ -110,7 +113,6 @@ public abstract class AbstractCluster implements Cluster {
 
 
 	protected int id;
-	//protected int level;
 	protected int size = 0;
 	protected HashMap<Integer, Vector> clusteredVectors;
 }

@@ -2,6 +2,12 @@ package edu.njit.cs634.knn;
 
 import java.util.Comparator;
 
+/**
+ * This class represents the distance between two vectors.  It will contain
+ * the two vectors and the distance between the two vectors.
+ * @author jmb66
+ *
+ */
 public class WeightedEdge implements Comparable<WeightedEdge>{
 	
 	public WeightedEdge(double weight, Vector v1, Vector v2)

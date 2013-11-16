@@ -21,6 +21,11 @@ public abstract class AbstractClusteringTechnique implements
 
 	}
 	
+	/**
+	 * This will evaluate the quality of the clusters that are created by a clustering
+	 * technique.
+	 * @return a double representing the quality of the clusters
+	 */
 	public double evaluateClusters()
 	{
 		evaluator.setClusters(clusters);
@@ -49,7 +54,6 @@ public abstract class AbstractClusteringTechnique implements
 		}
 		
 		//pass the distances between the points to the evaluator
-		
 		evaluator.createCopyOfWeightsTable(((ConcretePointsTable)distances).getWeightsTable());
 	}
 	

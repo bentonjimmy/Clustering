@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
+/**
+ * This class is used to run everything.  It will remove the outliers, cluster
+ * the points based oof of the four distance definitions and calculate the 
+ * silhouette coefficients.
+ * @author Jim Benton
+ *
+ */
 public class Clustering {
 	
 	public Clustering()
@@ -12,6 +19,10 @@ public class Clustering {
 		clusters = new HashMap<String, ArrayList<Cluster>>();
 	}
 	
+	/**
+	 * Runs the application.  It first creates the random points
+	 * and then runs them through the four clustering methods.
+	 */
 	public String run()
 	{	
 		PointsVector[] points1 = new PointsVector[numOfPoints];
@@ -33,7 +44,7 @@ public class Clustering {
 		
 		runClusteringTechniques();
 		
-		return "running complete";
+		return "running complete\n";
 	}
 	
 	/**
@@ -147,6 +158,6 @@ public class Clustering {
 	private int numOfPoints = -1;
 	private int numOfClusters = -1;
 	private Vector[] outliers, nonOutliers;
-	private HashMap<String, Double> coefficients;
-	private HashMap<String, ArrayList<Cluster>> clusters;
+	private HashMap<String, Double> coefficients; //Holds the coefficients created by the clusters
+	private HashMap<String, ArrayList<Cluster>> clusters;//Holds the resulting clusters
 }

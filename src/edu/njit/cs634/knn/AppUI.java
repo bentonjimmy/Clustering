@@ -25,7 +25,11 @@ import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 
-
+/**
+ * This class is used to display the user interface for the application.
+ * @author Jim Benton
+ *
+ */
 public class AppUI {
 
 	private JFrame frame;
@@ -141,7 +145,7 @@ public class AppUI {
 		public void actionPerformed(ActionEvent e)
 		{
 			tpDisplay.setText("");
-			//Validate that support is good
+			//Validate that values are good
 			if(validateForm())
 			{
 				clustering = new Clustering();
@@ -157,7 +161,7 @@ public class AppUI {
 					if(points.length > 0)
 					{
 						try {
-							doc.insertString(doc.getLength(), "The outliers found were: \n", null);
+							doc.insertString(doc.getLength(), "\nThe " + points.length + " outliers found were: \n", null);
 							for(int i=0; i<points.length; i++)
 							{
 								doc.insertString(doc.getLength(), points[i] +"\n", null);
@@ -169,7 +173,7 @@ public class AppUI {
 					else
 					{
 						try {
-							doc.insertString(doc.getLength(), "No outliers were found.\n", null);
+							doc.insertString(doc.getLength(), "\nNo outliers were found.\n", null);
 						} catch (BadLocationException e1) {
 							e1.printStackTrace();
 						}
@@ -182,7 +186,7 @@ public class AppUI {
 					double highestCoef = -1;
 					
 					try {
-						doc.insertString(doc.getLength(), "\nThe Silhouette Coefficients found were:\n", null);
+						doc.insertString(doc.getLength(), "\nThe Silhouette coefficients were:\n", null);
 					} catch (BadLocationException e1) {
 						e1.printStackTrace();
 					}
@@ -196,7 +200,7 @@ public class AppUI {
 							bestClustering = name;
 						}
 						try {
-							doc.insertString(doc.getLength(), name +": "+c, null);
+							doc.insertString(doc.getLength(), name +": "+c + "\n", null);
 						} catch (BadLocationException e1) {
 							e1.printStackTrace();
 						}
@@ -259,7 +263,7 @@ public class AppUI {
 				clustering.setP(Float.valueOf(txtp.getText()));
 				clustering.setD(Float.valueOf(txtD.getText()));
 				clustering.setNumOfPoints(Integer.valueOf(txtPoints.getText()));
-				clustering.setNumOfPoints(Integer.valueOf(txtClusters.getText()));
+				clustering.setNumOfClusters(Integer.valueOf(txtClusters.getText()));
 			}
 			catch(Exception e)
 			{

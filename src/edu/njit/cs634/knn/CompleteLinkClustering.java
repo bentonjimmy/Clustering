@@ -2,6 +2,13 @@ package edu.njit.cs634.knn;
 
 import java.util.ArrayList;
 
+/**
+ * This class implements the clustering based off of the Complete Link technique
+ * of defining the distance between two clusters as being the maximum distance between
+ * two points in the cluster
+ * @author Jim Benton
+ *
+ */
 public class CompleteLinkClustering extends AbstractClusteringTechnique {
 
 	public CompleteLinkClustering()

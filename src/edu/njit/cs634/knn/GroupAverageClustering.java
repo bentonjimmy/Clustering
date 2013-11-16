@@ -2,6 +2,13 @@ package edu.njit.cs634.knn;
 
 import java.util.ArrayList;
 
+/**
+ * This class implements the clustering based off of the Group Averaging technique
+ * of defining the distance between two clusters as being the average distance between
+ * all points in the clusters.
+ * @author Jim Benton
+ *
+ */
 public class GroupAverageClustering extends AbstractClusteringTechnique {
 
 	public GroupAverageClustering()
@@ -71,7 +78,16 @@ public class GroupAverageClustering extends AbstractClusteringTechnique {
 		return clusters;
 	}
 	
-	
+	/**
+	 * This method is used to calculate the Lance-Williams method values used to 
+	 * help calculate the distance between two clusters.
+	 * @param a
+	 * @param sizeOfA
+	 * @param b
+	 * @param sizeOfB
+	 * @param distAB
+	 * @return
+	 */
 	protected double lanceWilliams(double a, double sizeOfA, double b, double sizeOfB)
 	{
 		double alphaA = (sizeOfA / (sizeOfA + sizeOfB));

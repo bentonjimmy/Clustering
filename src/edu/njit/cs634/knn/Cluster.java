@@ -2,6 +2,11 @@ package edu.njit.cs634.knn;
 
 import java.util.HashMap;
 
+/**
+ * The interface that will represent a cluster
+ * @author jmb66
+ *
+ */
 public interface Cluster {
 
 	public boolean add(Vector v);

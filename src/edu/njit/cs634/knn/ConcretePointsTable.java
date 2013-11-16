@@ -3,7 +3,8 @@ package edu.njit.cs634.knn;
 import java.util.ArrayList;
 
 /**
- * 
+ * This is a concrete version of AbstractPointsTable.  This class is used
+ * to store the table that stores the distances between all the points.
  * @author jmb66
  *
  */

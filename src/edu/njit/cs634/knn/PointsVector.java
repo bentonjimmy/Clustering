@@ -1,5 +1,13 @@
 package edu.njit.cs634.knn;
 
+/**
+ * This class extends the Abstract Vector to create
+ * 3-dimensional points.  The points can either be given
+ * values or they can be randomly assigned.
+ * An ID is given to each vector in order to identify it.
+ * @author jmb66
+ *
+ */
 public class PointsVector extends AbstractVector {
 	
 	public PointsVector()

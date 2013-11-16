@@ -2,6 +2,13 @@ package edu.njit.cs634.knn;
 
 import java.util.ArrayList;
 
+/**
+ * This class implements the clustering based off of the Centroid Based technique
+ * of defining the distance between two clusters as being from one center to another
+ * center.
+ * @author Jim Benton
+ *
+ */
 public class CentroidClustering extends AbstractClusteringTechnique {
 
 	public CentroidClustering()
@@ -74,8 +81,16 @@ public class CentroidClustering extends AbstractClusteringTechnique {
 		return clusters;
 	}
 	
-	
-	
+	/**
+	 * This method is used to calculate the Lance-Williams method values used to 
+	 * help calculate the distance between two clusters.
+	 * @param a
+	 * @param sizeOfA
+	 * @param b
+	 * @param sizeOfB
+	 * @param distAB
+	 * @return
+	 */
 	protected double lanceWilliams(double a, double sizeOfA, double b, double sizeOfB, double distAB)
 	{
 		double alphaA = (sizeOfA / (sizeOfA + sizeOfB));

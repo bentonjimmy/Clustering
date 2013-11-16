@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.TreeMap;
 
+
+/**
+ * This class implements the clustering based off of the Sing Link technique
+ * of defining the distance between two clusters as being the minimum distance between
+ * two points in the clusters
+ * @author Jim Benton
+ *
+ */
 public class SingleLinkClustering extends AbstractClusteringTechnique {
 
 	public SingleLinkClustering()
@@ -33,7 +41,7 @@ public class SingleLinkClustering extends AbstractClusteringTechnique {
 				}
 			}
 			
-			//Sort the distances in ascending order
+			//Sort the distances in ascending order before clustering them
 			Collections.sort(distanceList);
 			
 			while(numOfClusters > endingClusterCount)

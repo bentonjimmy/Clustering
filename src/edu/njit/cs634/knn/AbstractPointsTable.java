@@ -5,7 +5,13 @@ import java.util.Arrays;
 
 public abstract class AbstractPointsTable implements PointsTable {
 
+	/**
+	 * Creates a two dimensional array containing double values that are the 
+	 * distance between two vectors
+	 * @return
+	 */
 	public double[][] getDistanceTable() {
+		//This method was mainly used for testing and not in the application
 		for(int i=0; i<weightsTable.size(); i++)
 		{
 			ArrayList<WeightedEdge> temp = weightsTable.get(i);
@@ -17,11 +23,7 @@ public abstract class AbstractPointsTable implements PointsTable {
 		}
 		return distanceTable;
 	}
-	/*
-	public void setDistanceTable(double[][] distanceTable) {
-		this.distanceTable = distanceTable;
-	}
-	*/
+
 	public Vector[] getVectors() {
 		return vectors;
 	}

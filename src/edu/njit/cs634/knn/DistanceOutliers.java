@@ -47,6 +47,10 @@ public class DistanceOutliers {
 		return nonOutliers.toArray(new PointsVector[0]);
 	}
 	
+	/**
+	 * This method will find the outliers in the set of 
+	 * points provided.
+	 */
 	protected void findOutliers()
 	{
 		outliers = new ArrayList<PointsVector>();
