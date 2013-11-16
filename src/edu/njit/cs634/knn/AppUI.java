@@ -6,6 +6,9 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,12 +29,14 @@ import javax.swing.JScrollPane;
 public class AppUI {
 
 	private JFrame frame;
-	private JTextField txtSupport;
-	private JTextField txtConfidence;
-	private JComboBox cBoxSetSelection;
-	private float support;
+	private JTextField txtp;
+	private JTextField txtD;
+	private double p, d;
+	private int numOfPoints;
 	private Clustering clustering;
 	private JTextPane tpDisplay;
+	private JTextField txtPoints;
+	private JTextField txtClusters;
 
 	/**
 	 * Launch the application.
@@ -76,32 +81,39 @@ public class AppUI {
 		JPanel panel_1 = new JPanel();
 		panel_3.add(panel_1);
 		
-		JLabel support = new JLabel("Support");
-		panel_1.add(support);
+		JLabel plbl = new JLabel("p");
+		panel_1.add(plbl);
 		
-		txtSupport = new JTextField();
-		txtSupport.setHorizontalAlignment(SwingConstants.LEFT);
-		txtSupport.setColumns(10);
-		panel_1.add(txtSupport);
+		txtp = new JTextField();
+		txtp.setHorizontalAlignment(SwingConstants.LEFT);
+		txtp.setColumns(3);
+		panel_1.add(txtp);
 		
-		JLabel confidence = new JLabel("Confidence");
-		panel_1.add(confidence);
+		JLabel dlbl = new JLabel("D");
+		panel_1.add(dlbl);
 		
-		txtConfidence = new JTextField();
-		txtConfidence.setHorizontalAlignment(SwingConstants.LEFT);
-		txtConfidence.setColumns(10);
-		panel_1.add(txtConfidence);
+		txtD = new JTextField();
+		txtD.setHorizontalAlignment(SwingConstants.LEFT);
+		txtD.setColumns(4);
+		panel_1.add(txtD);
+		
+		JLabel pointslbl = new JLabel("Number Of Points");
+		panel_1.add(pointslbl);
+		
+		txtPoints = new JTextField();
+		panel_1.add(txtPoints);
+		txtPoints.setColumns(5);
+		
+		JLabel NumOfClusterlbl = new JLabel("Number of Clusters");
+		panel_1.add(NumOfClusterlbl);
+		
+		txtClusters = new JTextField();
+		panel_1.add(txtClusters);
+		txtClusters.setColumns(5);
 		
 		JPanel panel_2 = new JPanel();
 		panel_3.add(panel_2);
 		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JLabel coachClassServiceTIme = new JLabel("Data Set Selection");
-		panel_2.add(coachClassServiceTIme);
-		
-		cBoxSetSelection = new JComboBox();
-		cBoxSetSelection.setModel(new DefaultComboBoxModel(new String[] {"Sample1", "Sample2", "Sample3", "Sample4", "Sample5"}));
-		panel_2.add(cBoxSetSelection);
 		
 		JPanel panel_4 = new JPanel();
 		frame.getContentPane().add(panel_4, BorderLayout.SOUTH);
@@ -126,28 +138,74 @@ public class AppUI {
 	{
 
 		@Override
-		public void actionPerformed(ActionEvent e) 
+		public void actionPerformed(ActionEvent e)
 		{
 			tpDisplay.setText("");
 			//Validate that support is good
 			if(validateForm())
 			{
 				clustering = new Clustering();
-				if(fillApriori())
+				if(fillApplication())
 				{
 					tpDisplay.setText("Running...");
-					clustering.run();
-					String[] items = apriori.getCommonItems();
-					tpDisplay.setText("");
+					String status = clustering.run();
+					tpDisplay.setText(status);
+					
 					Document doc = tpDisplay.getDocument();
-					//Print common items
-					for(int i=0; i<items.length; i++)
+					//Print results
+					Vector[] points = clustering.getOutliers();
+					if(points.length > 0)
 					{
 						try {
-							doc.insertString(doc.getLength(), items[i] + "\n", null);
+							doc.insertString(doc.getLength(), "The outliers found were: \n", null);
+							for(int i=0; i<points.length; i++)
+							{
+								doc.insertString(doc.getLength(), points[i] +"\n", null);
+							}
 						} catch (BadLocationException e1) {
 							e1.printStackTrace();
 						}
+					}
+					else
+					{
+						try {
+							doc.insertString(doc.getLength(), "No outliers were found.\n", null);
+						} catch (BadLocationException e1) {
+							e1.printStackTrace();
+						}
+					}
+					
+					HashMap<String, Double> coefficients = clustering.getCoefficients();
+					Set<String> keySet = coefficients.keySet();
+					Iterator<String> iter = keySet.iterator();
+					String bestClustering = null;
+					double highestCoef = -1;
+					
+					try {
+						doc.insertString(doc.getLength(), "\nThe Silhouette Coefficients found were:\n", null);
+					} catch (BadLocationException e1) {
+						e1.printStackTrace();
+					}
+					while(iter.hasNext())
+					{
+						String name = iter.next();
+						double c = coefficients.get(name);
+						if(c > highestCoef)
+						{
+							highestCoef = c;
+							bestClustering = name;
+						}
+						try {
+							doc.insertString(doc.getLength(), name +": "+c, null);
+						} catch (BadLocationException e1) {
+							e1.printStackTrace();
+						}
+					}
+					
+					try {
+						doc.insertString(doc.getLength(), "The most accurate clustering was: " + bestClustering, null);
+					} catch (BadLocationException e1) {
+						e1.printStackTrace();
 					}
 				}
 				
@@ -164,15 +222,25 @@ public class AppUI {
 		{
 			boolean valid = true;
 			
-			if(txtSupport.getText().isEmpty())
+			if(txtp.getText().isEmpty())
 			{
 				valid = false;
-				tpDisplay.setText("No value for Support\n");
+				tpDisplay.setText("No value for p\n");
 			}
-			else if(txtConfidence.getText().isEmpty())
+			else if(txtD.getText().isEmpty())
 			{
 				valid = false;
-				tpDisplay.setText("No value for Confidence\n");
+				tpDisplay.setText("No value for D\n");
+			}
+			else if(txtPoints.getText().isEmpty())
+			{
+				valid = false;
+				tpDisplay.setText("Number of Points has no value\n");
+			}
+			else if(txtClusters.getText().isEmpty())
+			{
+				valid = false;
+				tpDisplay.setText("Number of Clusters has no value\n");
 			}
 			
 			return valid;
@@ -183,16 +251,15 @@ public class AppUI {
 		 * If any values are not valid a message is printed in the application window.
 		 * @return boolean - Whether the values are valid or not.
 		 */
-		public boolean fillApriori()
+		public boolean fillApplication()
 		{
 			boolean valid = true;
-			String file = (String) cBoxSetSelection.getSelectedItem();
-			String filepath = "src/" + file + ".txt";
 			try
 			{
-				apriori.setFile(filepath);
-				apriori.setSupport(Float.valueOf(txtSupport.getText()));
-				apriori.setConfidence(Float.valueOf(txtConfidence.getText()));
+				clustering.setP(Float.valueOf(txtp.getText()));
+				clustering.setD(Float.valueOf(txtD.getText()));
+				clustering.setNumOfPoints(Integer.valueOf(txtPoints.getText()));
+				clustering.setNumOfPoints(Integer.valueOf(txtClusters.getText()));
 			}
 			catch(Exception e)
 			{
