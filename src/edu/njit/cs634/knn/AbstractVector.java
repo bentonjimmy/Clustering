@@ -6,10 +6,6 @@ public abstract class AbstractVector implements Vector{
 		return vectorID;
 	}
 	
-	public void setVectorID(int vectorID) {
-		this.vectorID = vectorID;
-	}
-	
 	public Cluster getCluster() {
 		return cluster;
 	}

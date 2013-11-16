@@ -32,6 +32,16 @@ public class WeightedEdge implements Comparable<WeightedEdge>{
 		}
 	}
 	
+	public WeightedEdge createCopyOfWeightedEdge()
+	{
+		WeightedEdge copy = null;
+		PointsVector copyV1 = ((PointsVector) this.getV1()).createCopyOfVector();
+		PointsVector copyV2 = ((PointsVector) this.getV2()).createCopyOfVector();
+		copy = new WeightedEdge(this.getWeight(), copyV1, copyV2);
+		
+		return copy;
+	}
+	
 	public double getWeight() {
 		return weight;
 	}

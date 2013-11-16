@@ -10,4 +10,5 @@ public interface Cluster {
 	public HashMap<Integer, Vector> getClusteredVectors();
 	public void setClusteredVectors(HashMap<Integer, Vector> clusteredVectors);
 	public int size();
+	public int getID();
 }

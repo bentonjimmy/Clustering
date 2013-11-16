@@ -7,9 +7,10 @@ public class AHCluster extends AbstractCluster {
 	public AHCluster()
 	{
 		clusteredVectors = new HashMap<Integer, Vector>();
+		id = ++numOfClusters;
 	}
 
-	
+	private static int numOfClusters = 0;
 	
 	
 

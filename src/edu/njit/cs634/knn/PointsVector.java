@@ -17,6 +17,18 @@ public class PointsVector extends AbstractVector {
 		vectorID = ++numOfVectors;
 	}
 	
+	public PointsVector createCopyOfVector()
+	{
+		PointsVector copy = new PointsVector();
+		copy.setCluster(this.getCluster());
+		copy.setX(this.getX());
+		copy.setY(this.getY());
+		copy.setZ(this.getZ());
+		copy.vectorID = this.vectorID;
+		
+		return copy;
+	}
+	
 	public void fillPoints()
 	{
 		x = gen.getNumber();
